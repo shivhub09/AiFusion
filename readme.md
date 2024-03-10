@@ -87,6 +87,3 @@ Make sure you have the following installed on your development machine:
 
 Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md).
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
