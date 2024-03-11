@@ -84,8 +84,8 @@ class _MainScreenPageState extends State<MainScreenPage> {
           borderRadius: BorderRadius.circular(20),
           items: items,
           backgroundColor: Colors.black87,
-          color: Colors.grey,
-          colorSelected: Colors.white,
+          color: Colors.grey.shade700,
+          colorSelected: Color.fromRGBO(199, 178, 253, 1),
           indexSelected: visit,
           paddingVertical: 24,
           onTap: (int index) {
