@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/utils/home_screen_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -197,6 +198,56 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+
+              Positioned(
+                  top: 400,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    height: 225,
+                    child: ListView.builder(
+                      padding: EdgeInsets.all(0),
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return HomeScreenimagesCard(
+                          topic: 'React',
+                          icon: Icon(
+                            Icons.auto_awesome_mosaic,
+                            size: 90,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
+                  )) // Positioned(
+              //     top: 450,
+              //     left: 0, // Add this line to specify the left position
+              //     right: 0, // Add this line to specify the right position
+              //     child: Row(
+              //       children: [
+              //         HomeScreenimagesCard(
+              //           topic: 'React',
+              //           icon: Icon(
+              //             Icons.auto_awesome_mosaic,
+              //             size: 90,
+              //             color: Colors.grey,
+              //           ),
+              //         ),
+              //         // SizedBox(
+              //         //   width: 10,
+              //         // ),
+              //         HomeScreenimagesCard(
+              //           topic: 'React',
+              //           icon: Icon(
+              //             Icons.auto_awesome_mosaic,
+              //             size: 90,
+              //             color: Colors.grey,
+              //           ),
+              //         ),
+              //       ],
+              //     ))
             ],
           ),
         ));

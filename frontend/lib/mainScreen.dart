@@ -15,13 +15,13 @@ class MainScreenPage extends StatefulWidget {
 
 const List<TabItem> items = [
   TabItem(
-    icon: Icons.home_rounded,
+    icon: Icons.check_circle_outline_rounded,
   ),
   TabItem(
     icon: Icons.chat_bubble_outline_rounded,
   ),
   TabItem(
-    icon: Icons.check_circle_outline_rounded,
+    icon: Icons.home_rounded,
   ),
   TabItem(
     icon: Icons.image_outlined,
@@ -33,12 +33,12 @@ const List<TabItem> items = [
 
 class _MainScreenPageState extends State<MainScreenPage> {
   late PageController _pageController;
-  int visit = 0;
+  int visit = 2;
 
   List screen = [
-    MyHomePage(),
-    ToDoScreen(),
     ChatBotPage(),
+    ToDoScreen(),
+    MyHomePage(),
     ImageCaptioningScreen(),
     ProfileScreen(),
   ];
@@ -72,30 +72,41 @@ class _MainScreenPageState extends State<MainScreenPage> {
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
-        child: BottomBarFloating(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade400,
-              spreadRadius: 2,
-              blurRadius: 4,
-              offset: Offset(0, 4),
+        child: Container(
+          margin: EdgeInsets.all(0),
+          padding: EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.grey.shade900, Colors.black],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ],
-          borderRadius: BorderRadius.circular(20),
-          items: items,
-          backgroundColor: Colors.black87,
-          color: Colors.grey.shade700,
-          colorSelected: Color.fromRGBO(199, 178, 253, 1),
-          indexSelected: visit,
-          paddingVertical: 24,
-          onTap: (int index) {
-            _pageController.animateToPage(
-              index,
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          },
-          animated: true,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade400,
+                spreadRadius: 2,
+                blurRadius: 4,
+                offset: Offset(0, 4),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: BottomBarFloating(
+            items: items,
+            backgroundColor: Colors.transparent,
+            color: Colors.grey.shade700,
+            colorSelected: Color.fromRGBO(199, 178, 253, 1),
+            indexSelected: visit,
+            paddingVertical: 24,
+            onTap: (int index) {
+              _pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            },
+            animated: true,
+          ),
         ),
       ),
     );
