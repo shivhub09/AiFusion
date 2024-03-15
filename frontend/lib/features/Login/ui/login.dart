@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/features/Home/ui/Home.dart';
 import 'package:frontend/features/Login/bloc/login_bloc.dart';
+import 'package:frontend/services/loginFunction.dart';
 import 'package:frontend/utils/formfieldslogin.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -125,7 +123,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                       builder: (context, state) {
                         switch (state.runtimeType) {
                           case LoginLoadingState:
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(
                                 color: Colors.white,
                               ),
@@ -135,7 +133,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Column(
@@ -151,17 +149,21 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      loginBloc.add(LoginButtonClickedEvent(email: _emailEditingController.text, password: _passwordEditingController.text));
+                                      // loginUser(_emailEditingController.text,
+                                      //     _passwordEditingController.text);
+                                    },
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white),
                                     ),
                                     child: Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(40, 25, 40, 25),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          40, 25, 40, 25),
                                       child: isLoading
-                                          ? CircularProgressIndicator(
+                                          ? const CircularProgressIndicator(
                                               valueColor:
                                                   AlwaysStoppedAnimation<Color>(
                                                       Colors.black),
@@ -177,7 +179,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                               ],

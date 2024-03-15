@@ -9,6 +9,14 @@ class userService{
             throw error;
         }
     }
+
+    static async checkStudent(email){
+        try {
+            return await userModel.findOne({email})
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = userService;

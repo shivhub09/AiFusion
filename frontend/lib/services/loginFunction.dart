@@ -1,0 +1,27 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+Future<Map<String, dynamic>> loginUser(String email, String password) async {
+  try {
+    var reqBody = {"email": email, "password": password};
+    var response = await http.post(
+      Uri.parse("http://192.168.242.65:3000/user/login"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(reqBody),
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
+    } else {
+      // Handle non-200 status code
+      print("Failed with status code: ${response.statusCode}");
+      return {"message": "failed"};
+    }
+  } catch (e) {
+    // Handle exceptions
+    print("Error: $e");
+    return {"message": "failed"};
+  }
+}
