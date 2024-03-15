@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/features/Home/ui/Home.dart';
 import 'package:frontend/features/Login/bloc/login_bloc.dart';
 import 'package:frontend/services/loginFunction.dart';
 import 'package:frontend/utils/formfieldslogin.dart';
@@ -118,7 +119,12 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                       buildWhen: (previous, current) =>
                           current is! LoginActionState,
                       listener: (context, state) {
-                        // TODO: implement listener
+                        if (state is LoginNavigateToHomeScreenActionState) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()));
+                        }
                       },
                       builder: (context, state) {
                         switch (state.runtimeType) {
@@ -150,7 +156,10 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                                   borderRadius: BorderRadius.circular(20),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      loginBloc.add(LoginButtonClickedEvent(email: _emailEditingController.text, password: _passwordEditingController.text));
+                                      loginBloc.add(LoginButtonClickedEvent(
+                                          email: _emailEditingController.text,
+                                          password:
+                                              _passwordEditingController.text));
                                       // loginUser(_emailEditingController.text,
                                       //     _passwordEditingController.text);
                                     },

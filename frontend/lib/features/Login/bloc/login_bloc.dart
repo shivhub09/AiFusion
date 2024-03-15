@@ -26,8 +26,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> loginButtonClickedEvent(
-      LoginButtonClickedEvent event, Emitter<LoginState> emit) {
-    var response = loginUser(event.email, event.password);
-    print(response);
+      LoginButtonClickedEvent event, Emitter<LoginState> emit) async {
+    Map<String, dynamic> jsonResponse =
+        await loginUser(event.email, event.password);
+    if (jsonResponse["status"] == true) {
+      emit(LoginNavigateToHomeScreenActionState());
+    }
+    // print(response);
   }
 }

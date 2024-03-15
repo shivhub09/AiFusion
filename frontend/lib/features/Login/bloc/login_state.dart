@@ -14,3 +14,5 @@ class LoginLoadedSuccessState extends LoginState {}
 class LoginErrorState extends LoginState {}
 
 // class LoginUserLoginActionState extends LoginActionState {}
+
+class LoginNavigateToHomeScreenActionState extends LoginActionState {}
