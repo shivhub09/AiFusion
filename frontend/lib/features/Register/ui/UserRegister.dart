@@ -1,31 +1,31 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/Home/ui/Home.dart';
-import 'package:frontend/features/Login/bloc/login_bloc.dart';
-import 'package:frontend/features/Register/ui/UserRegister.dart';
-import 'package:frontend/services/loginFunction.dart';
+import 'package:frontend/features/Login/ui/login.dart';
+import 'package:frontend/features/Register/bloc/register_bloc.dart';
 import 'package:frontend/utils/formfieldslogin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPageStudent extends StatefulWidget {
-  const LoginPageStudent({super.key});
+class UserRegisterPage extends StatefulWidget {
+  const UserRegisterPage({super.key});
 
   @override
-  State<LoginPageStudent> createState() => _LoginPageStudentState();
+  State<UserRegisterPage> createState() => _UserRegisterPageState();
 }
 
-class _LoginPageStudentState extends State<LoginPageStudent> {
-  final LoginBloc loginBloc = new LoginBloc();
+class _UserRegisterPageState extends State<UserRegisterPage> {
+  final RegisterBloc registerBloc = new RegisterBloc();
   bool isLoading = false;
 
   final TextEditingController _passwordEditingController =
       TextEditingController();
   final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _nameEditingController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
-    loginBloc.add(LoginInitialEvent());
+    registerBloc.add(RegisterInitialEvent());
     super.initState();
   }
 
@@ -91,10 +91,10 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                 bottom: 0,
                 child: Center(
                   child: Container(
-                    height: 350,
+                    height: 400,
                     width: 350,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(20),
                       gradient: LinearGradient(
                         colors: [
                           Colors.grey.shade900,
@@ -113,30 +113,57 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                         ),
                       ],
                     ),
-                    child: BlocConsumer<LoginBloc, LoginState>(
-                      bloc: loginBloc,
+                    child: BlocConsumer<RegisterBloc, RegisterState>(
+                      bloc: registerBloc,
                       listenWhen: ((previous, current) =>
-                          current is LoginActionState),
+                          current is RegisterActionState),
                       buildWhen: (previous, current) =>
-                          current is! LoginActionState,
+                          current is! RegisterActionState,
                       listener: (context, state) {
-                        if (state is LoginNavigateToHomeScreenActionState) {
+                        if (state is RegisterSuccessfulRegisterActionState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Row(
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "User Registered Succesfully",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              backgroundColor: Colors.black87,
+                              behavior: SnackBarBehavior.floating,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              duration: const Duration(seconds: 2),
+                              elevation: 5,
+                              margin: const EdgeInsets.all(16),
+                            ),
+                          );
+                        } else if (state
+                            is RegisterNavigateToLoginScreenActionState) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyHomePage()));
+                                  builder: (context) => LoginPageStudent()));
                         }
                       },
                       builder: (context, state) {
                         switch (state.runtimeType) {
-                          case LoginLoadingState:
-                            return const Center(
+                          case RegisterLoadingState:
+                            return Center(
                               child: CircularProgressIndicator(
                                 color: Colors.white,
                               ),
                             );
 
-                          case LoginLoadedSuccessState:
+                          case RegisterLoadedSuccessState:
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -151,16 +178,26 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                                         'Email', _emailEditingController),
                                     NewFormFields(
                                         'Password', _passwordEditingController),
+                                    NewFormFields(
+                                        'Name', _nameEditingController),
                                   ],
                                 ),
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      loginBloc.add(LoginButtonClickedEvent(
-                                          email: _emailEditingController.text,
-                                          password:
-                                              _passwordEditingController.text));
+                                      registerBloc.add(
+                                          RegisterButtonClickedEvent(
+                                              name: _nameEditingController.text,
+                                              email:
+                                                  _emailEditingController.text,
+                                              password:
+                                                  _passwordEditingController
+                                                      .text));
+                                      // loginBloc.add(LoginButtonClickedEvent(
+                                      //     email: _emailEditingController.text,
+                                      //     password:
+                                      //         _passwordEditingController.text));
                                       // loginUser(_emailEditingController.text,
                                       //     _passwordEditingController.text);
                                     },
@@ -179,7 +216,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                                                       Colors.black),
                                             )
                                           : Text(
-                                              "Login!",
+                                              "Register!",
                                               style: GoogleFonts.montserrat(
                                                 color: Colors.black,
                                                 fontSize: 22,
@@ -199,28 +236,6 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                             return Container();
                         }
                       },
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 220,
-                left: 0,
-                right: 0,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserRegisterPage()));
-                    },
-                    child: Text(
-                      "Register Here!",
-                      style: GoogleFonts.urbanist(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
