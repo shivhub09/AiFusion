@@ -200,7 +200,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               Positioned(
-                  top: 400,
+                top: 380,
+                left: 20,
+                child: Text(
+                  "My Skills : ",
+                  style: GoogleFonts.urbanist(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+
+              Positioned(
+                  top: 420,
                   left: 0,
                   right: 0,
                   child: SizedBox(
