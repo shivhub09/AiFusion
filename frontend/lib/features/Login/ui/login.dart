@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/Home/ui/Home.dart';
+import 'package:frontend/features/Login/bloc/login_bloc.dart';
 import 'package:frontend/utils/formfieldslogin.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,11 +15,19 @@ class LoginPageStudent extends StatefulWidget {
 }
 
 class _LoginPageStudentState extends State<LoginPageStudent> {
+  final LoginBloc loginBloc = new LoginBloc();
   bool isLoading = false;
 
   final TextEditingController _passwordEditingController =
       TextEditingController();
   final TextEditingController _emailEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    loginBloc.add(LoginInitialEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,50 +113,80 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                         ),
                       ],
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            NewFormFields('Email', _emailEditingController),
-                            NewFormFields(
-                                'Password', _passwordEditingController),
-                          ],
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(40, 25, 40, 25),
-                              child: isLoading
-                                  ? CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.black),
-                                    )
-                                  : Text(
-                                      "Login!",
-                                      style: GoogleFonts.montserrat(
-                                        color: Colors.black,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                    child: BlocConsumer<LoginBloc, LoginState>(
+                      bloc: loginBloc,
+                      listenWhen: ((previous, current) =>
+                          current is LoginActionState),
+                      buildWhen: (previous, current) =>
+                          current is! LoginActionState,
+                      listener: (context, state) {
+                        // TODO: implement listener
+                      },
+                      builder: (context, state) {
+                        switch (state.runtimeType) {
+                          case LoginLoadingState:
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            );
+
+                          case LoginLoadedSuccessState:
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    NewFormFields(
+                                        'Email', _emailEditingController),
+                                    NewFormFields(
+                                        'Password', _passwordEditingController),
+                                  ],
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white),
                                     ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.fromLTRB(40, 25, 40, 25),
+                                      child: isLoading
+                                          ? CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.black),
+                                            )
+                                          : Text(
+                                              "Login!",
+                                              style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            );
+
+                          default:
+                            return Container();
+                        }
+                      },
                     ),
                   ),
                 ),
