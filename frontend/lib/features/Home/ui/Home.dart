@@ -24,8 +24,56 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Scaffold(
         backgroundColor: Colors.black,
+        key: _scaffoldKey,
+        drawer: Drawer(
+          child: Container(
+            color: Colors.white,
+            child: Stack(
+              children: [
+                Positioned(
+                    top: 50,
+                    left: 10,
+                    right: 10,
+                    child: Center(
+                      child: Text(
+                        "Shivam",
+                        style: GoogleFonts.urbanist(
+                            color: Colors.black,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+                Positioned(
+                    bottom: 40,
+                    left: 5,
+                    right: 5,
+                    child: Center(
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                            ),
+                            onPressed: () {},
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                              child: Text(
+                                "Logout!",
+                                style: GoogleFonts.urbanist(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ))))
+              ],
+            ),
+          ),
+        ),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -80,10 +128,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    Icon(
-                      Icons.notifications_none_outlined,
-                      color: Colors.grey.shade50,
-                      size: 30,
+                    GestureDetector(
+                      onTap: () {
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                      child: Icon(
+                        Icons.clear_all_rounded,
+                        color: Colors.grey.shade50,
+                        size: 30,
+                      ),
                     )
                   ],
                 ),
