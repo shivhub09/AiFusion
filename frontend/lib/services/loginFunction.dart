@@ -6,7 +6,7 @@ Future<Map<String, dynamic>> loginUser(String email, String password) async {
   try {
     var reqBody = {"email": email, "password": password};
     var response = await http.post(
-      Uri.parse("http://192.168.61.65:3000/user/login"),
+      Uri.parse("http://192.168.5.65:3000/user/login"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(reqBody),
     );

@@ -7,7 +7,7 @@ Future<Map<String, dynamic>> registerUser(
   try {
     var reqBody = {"email": email, "name": name, "password": password};
     var response = await http.post(
-      Uri.parse("http://192.168.61.65:3000/user/registration"),
+      Uri.parse("http://192.168.5.65:3000/user/registration"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(reqBody),
     );
@@ -24,6 +24,6 @@ Future<Map<String, dynamic>> registerUser(
     print("Error: $e");
     return {"status": "failed", "message": "failed"};
 
-    throw e;
+    // throw e;
   }
 }

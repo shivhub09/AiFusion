@@ -7,6 +7,8 @@ import 'package:frontend/utils/formfieldslogin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../mainScreen.dart';
+
 class LoginPageStudent extends StatefulWidget {
   const LoginPageStudent({super.key});
 
@@ -124,7 +126,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyHomePage()));
+                                  builder: (context) => MainScreenPage()));
                         }
                       },
                       builder: (context, state) {
