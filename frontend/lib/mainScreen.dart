@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
-import 'package:frontend/features/Profile/ui/Prodile.dart';
+import 'package:frontend/features/TextPart/ui/TextPart.dart';
 import 'package:frontend/features/ToDo/ui/ToDo.dart';
 import 'features/ChatBot/ui/ChatBotPage.dart';
 import 'features/Home/ui/Home.dart';
@@ -27,7 +27,7 @@ const List<TabItem> items = [
     icon: Icons.image_outlined,
   ),
   TabItem(
-    icon: Icons.person_outline_rounded,
+    icon: Icons.text_fields,
   ),
 ];
 
@@ -40,7 +40,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
     ToDoScreen(),
     MyHomePage(),
     ImageCaptioningScreen(),
-    ProfileScreen(),
+    TextPart(),
   ];
 
   @override
@@ -95,7 +95,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
             items: items,
             backgroundColor: Colors.transparent,
             color: Colors.grey.shade700,
-            colorSelected: Color.fromRGBO(199, 178, 253, 1),
+            colorSelected: Color.fromRGBO(204, 195, 226, 1),
             indexSelected: visit,
             paddingVertical: 24,
             onTap: (int index) {

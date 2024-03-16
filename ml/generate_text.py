@@ -1,14 +1,11 @@
 from transformers import pipeline
 
-# Create a summarization pipeline with the TensorFlow model
-summarizer = pipeline("summarization")
+# Load the summarization pipeline
+pipe = pipeline("summarization",model='facebook/bart-base')
 
-# Your text
-text = """this is the text about how machine learning works and what machine is all about and thus it also tells us about the different types of machine learning that is unsupervised, supervised, and reinforcement learning.
-"""
+text_to_summarize = """This is a long text that you want to summarize. It can contain multiple paragraphs, sentences, and ideas. The purpose of summarization is to condense the text into a shorter version that captures the main points and key information."""
 
-# Perform summarization
-result = summarizer(text, max_length=130, min_length=10, do_sample=False)
+summary = pipe(text_to_summarize)
 
-# Print the result
-print(result)
+# Print the generated summary
+print()
