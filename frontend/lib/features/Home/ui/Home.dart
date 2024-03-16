@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/home_screen_card.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -57,7 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.black),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              logout();
+                            },
                             child: Container(
                               padding:
                                   const EdgeInsets.fromLTRB(40, 20, 40, 20),
@@ -316,5 +319,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ));
+  }
+
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('email'); // Clear the stored email
   }
 }
