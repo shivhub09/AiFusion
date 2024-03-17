@@ -38,3 +38,46 @@ exports.login = async (req, res , next)=>{
         throw error;
     }
 }
+
+exports.createTodo = async (req, res, next) => {
+    try {
+        const { email, description } = req.body;
+        const todo = await userService.createTodo(email, description);
+        res.status(201).json({ status: true, todo });
+    } catch (error) {
+        next(error); // Pass the error to the error handling middleware
+    }
+}
+
+exports.getTodos = async (req, res, next) => {
+    try {
+        const { email } = req.params;
+        const todos = await userService.getTodos(email);
+        res.status(200).json({ status: true, todos });
+    } catch (error) {
+        next(error); // Pass the error to the error handling middleware
+    }
+}
+
+exports.updateTodo = async (req, res, next) => {
+    try {
+        const { email, todoId } = req.params;
+        const updatedFields = req.body;
+        const todo = await userService.updateTodo(email, todoId, updatedFields);
+        res.status(200).json({ status: true, todo });
+    } catch (error) {
+        next(error); // Pass the error to the error handling middleware
+    }
+}
+
+
+
+exports.deleteTodo = async (req, res, next) => {
+    try {
+        const { email, todoId } = req.params;
+        await userService.deleteTodo(email, todoId);
+        res.status(204).send();
+    } catch (error) {
+        next(error); // Pass the error to the error handling middleware
+    }
+}
