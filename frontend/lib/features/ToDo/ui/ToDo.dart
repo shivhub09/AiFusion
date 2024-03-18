@@ -11,7 +11,16 @@ class _ToDoScreenState extends State<ToDoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+          size: 22,
+        ),
+      ),
+      body: const Center(
         child: Text("TO DO"),
       ),
     );

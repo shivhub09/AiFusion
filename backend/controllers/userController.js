@@ -51,7 +51,7 @@ exports.createTodo = async (req, res, next) => {
 
 exports.getTodos = async (req, res, next) => {
     try {
-        const { email } = req.params;
+        const { email } = req.body;
         const todos = await userService.getTodos(email);
         res.status(200).json({ status: true, todos });
     } catch (error) {
