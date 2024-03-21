@@ -17,3 +17,6 @@ final class ToDoLoadedSuccessState extends ToDoState {
 }
 
 final class ToDoAddToDoButtonClicked extends ToDoActionState {}
+
+final class ToDoEmptyState extends ToDoState{}
+

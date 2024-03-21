@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:frontend/features/ToDo/services/addToDo.dart';
 import 'package:frontend/features/ToDo/services/fetchToDo.dart';
 import 'package:meta/meta.dart';
 
@@ -15,6 +16,9 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     on<ToDoInitialEvent>(toDoInitialEvent);
 
     on<ToDoAddToDoButtonClickedEvent>(toDoAddToDoButtonClickedEvent);
+
+    on<ToDoAddToDoSubmitButtonClickedEvent>(
+        toDoAddToDoSubmitButtonClickedEvent);
   }
 
   FutureOr<void> toDoInitialEvent(
@@ -25,11 +29,15 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     // fetchTodo();
 
     Map<String, dynamic> jsonResponse = await fetchTodo();
-    print(jsonResponse["todos"]);
+    // print(jsonResponse["todos"]);
     final todoList =
         (jsonResponse["todos"]).map((map) => TodoItem.fromJson(map)).toList();
     if (jsonResponse["status"] == true) {
-      emit(ToDoLoadedSuccessState(todo: todoList));
+      if (jsonResponse["todos"].length == 0) {
+        emit(ToDoEmptyState());
+      } else {
+        emit(ToDoLoadedSuccessState(todo: todoList));
+      }
     }
   }
 
@@ -38,5 +46,23 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
     print("Add to do button clicked event");
 
     emit(ToDoAddToDoButtonClicked());
+  }
+
+  FutureOr<void> toDoAddToDoSubmitButtonClickedEvent(
+      ToDoAddToDoSubmitButtonClickedEvent event,
+      Emitter<ToDoState> emit) async {
+    print("adding task to");
+    Map<String, dynamic> jsonResponse = await addToDo(event.description);
+
+    if (jsonResponse["status"] == true) {
+      emit(ToDoLoadingState());
+      Map<String, dynamic> jsonResponse = await fetchTodo();
+      // print(jsonResponse["todos"]);
+      final todoList =
+          (jsonResponse["todos"]).map((map) => TodoItem.fromJson(map)).toList();
+      if (jsonResponse["status"] == true) {
+        emit(ToDoLoadedSuccessState(todo: todoList));
+      }
+    }
   }
 }

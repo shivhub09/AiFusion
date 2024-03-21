@@ -1,13 +1,18 @@
 import 'dart:convert';
-
+import 'package:frontend/services/email.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<Map<String, dynamic>> fetchTodo() async {
   print("fetching");
   try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('email');
+
     var reqBody = {
-      "email": "shivnagori2020@gmail.com",
+      "email": email,
     };
+
     var response = await http.post(
       Uri.parse("http://192.168.146.65:3000/user/todos"),
       headers: {"Content-Type": "application/json"},

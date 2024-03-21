@@ -7,3 +7,10 @@ final class ToDoInitialEvent extends ToDoEvent {}
 
 final class ToDoAddToDoButtonClickedEvent extends ToDoEvent {}
 
+final class ToDoAddToDoSubmitButtonClickedEvent extends ToDoEvent {
+  final String description;
+
+  ToDoAddToDoSubmitButtonClickedEvent({required this.description});
+
+  
+}
