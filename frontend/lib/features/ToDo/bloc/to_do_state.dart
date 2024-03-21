@@ -9,6 +9,11 @@ class ToDoInitial extends ToDoState {}
 
 final class ToDoLoadingState extends ToDoState {}
 
-final class ToDoLoadedSuccessState extends ToDoState {}
+final class ToDoLoadedSuccessState extends ToDoState {
+  final List todo;
 
-final class ToDoAddToDoButtonClicked extends ToDoActionState{}
+  ToDoLoadedSuccessState({required this.todo});
+
+}
+
+final class ToDoAddToDoButtonClicked extends ToDoActionState {}
