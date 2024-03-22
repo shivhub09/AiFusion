@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (hour < 12) {
       return 'Morning';
     } else if (hour < 18) {
-      return 'Afternoon';
+      return 'Afternoon'; 
     } else {
       return 'Evening';
     }

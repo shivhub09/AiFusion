@@ -15,7 +15,7 @@ Future<Map<String, dynamic>> addToDo(String description) async {
     };
 
     var response = await http.post(
-      Uri.parse("http://192.168.146.65:3000/user/todo"),
+      Uri.parse("http://192.168.146.65:3000/user/addToDo"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(reqBody),
     );

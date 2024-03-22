@@ -53,18 +53,15 @@ class userService{
         }
     }
 
-    static async deleteTodo(email, todoId) {
+    static async deleteTodo(email  , title) {
         try {
-            const todo = await TodoModel.findOneAndUpdate(
-                { email },
-                { $pull: { toDo: { _id: todoId } } },
-                { new: true }
-            );
-            return todo;
+            const todo = await TodoModel.deleteOne({description : title , email: email});
+            return title;
         } catch (error) {
             throw error;
         }
     }
+    
 
 }
 

@@ -61,8 +61,7 @@ exports.getTodos = async (req, res, next) => {
 
 exports.updateTodo = async (req, res, next) => {
     try {
-        const { email, todoId } = req.params;
-        const updatedFields = req.body;
+        const { email, todoId, updatedFields } = req.body;
         const todo = await userService.updateTodo(email, todoId, updatedFields);
         res.status(200).json({ status: true, todo });
     } catch (error) {
@@ -74,9 +73,9 @@ exports.updateTodo = async (req, res, next) => {
 
 exports.deleteTodo = async (req, res, next) => {
     try {
-        const { email, todoId } = req.params;
-        await userService.deleteTodo(email, todoId);
-        res.status(204).send();
+        const {email , title } = req.body;
+        await userService.deleteTodo(email , title);
+        res.status(200).json({ status: true, message: "successfully deleted" });
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
     }
