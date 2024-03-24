@@ -15,10 +15,10 @@ class MainScreenPage extends StatefulWidget {
 
 const List<TabItem> items = [
   TabItem(
-    icon: Icons.check_circle_outline_rounded,
+    icon: Icons.chat_bubble_outline_rounded,
   ),
   TabItem(
-    icon: Icons.chat_bubble_outline_rounded,
+    icon: Icons.check_circle_outline_rounded,
   ),
   TabItem(
     icon: Icons.home_rounded,

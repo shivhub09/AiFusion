@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ImageCaptioningScreen extends StatefulWidget {
@@ -12,13 +13,14 @@ class _ImageCaptioningScreenState extends State<ImageCaptioningScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              logout();
-              // Navigator.push(context, )
-            },
-            child: Text("logout")),
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            "Image Captioning!",
+            style: GoogleFonts.urbanist(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }

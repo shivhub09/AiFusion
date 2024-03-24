@@ -28,11 +28,6 @@ class _TextPartState extends State<TextPart> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.black,
-            // size: 0,
-          ),
           title: Center(
             child: Text(
               "Play with Text!",

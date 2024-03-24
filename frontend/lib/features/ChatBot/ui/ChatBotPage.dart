@@ -49,7 +49,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                       chatBotBloc.add(ChatBotPlusPlusBUttonClickedEvent());
                     },
                     child: Icon(
-                      Icons.add,
+                      Icons.chat_bubble_outline,
                       color: Color.fromRGBO(204, 195, 226, 1),
                     ),
                   ),
