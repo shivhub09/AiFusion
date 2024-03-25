@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/features/ImageCaptioning/bloc/image_captioning_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +12,15 @@ class ImageCaptioningScreen extends StatefulWidget {
 }
 
 class _ImageCaptioningScreenState extends State<ImageCaptioningScreen> {
+  ImageCaptioningBloc imageCaptioningBloc = new ImageCaptioningBloc();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    imageCaptioningBloc.add(ImageCaptioningInitialEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +32,26 @@ class _ImageCaptioningScreenState extends State<ImageCaptioningScreen> {
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
+      ),
+      body: BlocConsumer<ImageCaptioningBloc, ImageCaptioningState>(
+        bloc: imageCaptioningBloc,
+        listenWhen: (previous, current) =>
+            current is ImageCaptioningActionState,
+        buildWhen: (previous, current) =>
+            current is! ImageCaptioningActionState,
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case ImageCaptioningLoadedSuccessState:
+              return Center(
+                child: Text("Image captioning"),
+              );
+            default:
+              return Container();
+          }
+        },
       ),
     );
   }
