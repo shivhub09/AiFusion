@@ -26,6 +26,8 @@ exports.login = async (req, res , next)=>{
                 student: {
                     email: user.email,
                     name: user.name,
+                    images:user.images,
+                    text:user.text,
                 }
             });
         }

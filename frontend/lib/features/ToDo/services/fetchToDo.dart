@@ -14,7 +14,7 @@ Future<Map<String, dynamic>> fetchTodo() async {
     };
 
     var response = await http.post(
-      Uri.parse("http://192.168.26.65:3000/user/getToDo"),
+      Uri.parse("http://192.168.21.65:3000/user/getToDo"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(reqBody),
     );

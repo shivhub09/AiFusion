@@ -6,7 +6,7 @@ Future<Map<String, dynamic>> summarize(String text) async {
   try {
     var reqBody = {"text": text};
     var response = await http.post(
-      Uri.parse("http://192.168.26.65:8080/summarizeText"),
+      Uri.parse("http://192.168.21.65:8080/summarizeText"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(reqBody),
     );

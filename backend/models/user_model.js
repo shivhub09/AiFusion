@@ -19,7 +19,17 @@ const userSchema = new Schema({
     name:{
         type:String,
         required:true,
-    }
+    },
+
+    images:{
+        type:Number,
+        default: 0
+    },
+
+    text:{
+        type:Number,
+        default: 0
+    },
 });
 
 userSchema.methods.comparePassword = async function(userPassword){

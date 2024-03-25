@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/home_screen_card.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,10 +21,23 @@ class _MyHomePageState extends State<MyHomePage> {
     if (hour < 12) {
       return 'Morning';
     } else if (hour < 18) {
-      return 'Afternoon'; 
+      return 'Afternoon';
     } else {
       return 'Evening';
     }
+  }
+
+  int images = 0;
+  int text = 0;
+  Future<void> checkLoggedInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? images_value = prefs.getInt('images');
+    int? text_value = prefs.getInt('text');
+
+    setState(() {
+      images = images_value!;
+      text = text_value!;
+    });
   }
 
   @override
@@ -215,7 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "9 Images",
+                              images.toString() + " Images",
                               style: GoogleFonts.urbanist(
                                   color: Colors.white, fontSize: 24),
                             ),
@@ -240,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "8 Text",
+                              text.toString() + " Text",
                               style: GoogleFonts.urbanist(
                                   color: Colors.white, fontSize: 24),
                             ),

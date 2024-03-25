@@ -32,8 +32,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (jsonResponse["status"] == true) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('email', event.email);
+      await prefs.setInt('images',
+          jsonResponse["student"]["images"]); // Access "images" directly
+      await prefs.setInt(
+          'text', jsonResponse["student"]["text"]); // Access "text" directly
       emit(LoginNavigateToHomeScreenActionState());
     }
-    // print(response);
   }
 }

@@ -50,4 +50,4 @@ def classify():
 
 
 if __name__ == '__main__':
-  app.run(debug=True, host="192.168.26.65", port=8080)  
+  app.run(debug=True, host="192.168.21.65", port=8080)  
